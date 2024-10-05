@@ -10,6 +10,7 @@ import com.example.parkup.service.MailService;
 import com.example.parkup.service.RegisteredUserService;
 import com.example.parkup.service.RegistrationService;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,11 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final MailService emailService;
+
+    @Value("${server.port}")
+    private String serverPort;
+    @Value("${host}")
+    private String serverHost;
 
     public RegistrationServiceImpl(RegisteredUserService registeredUserService, EmailValidator emailValidator,
                                  ConfirmationTokenService confirmationTokenService, MailService emailService) {
@@ -48,7 +54,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         String token = registeredUserService.signUpParkingAttendant(user);
 
-        String link = "http://localhost:8080/registriranParkirac/registration/confirm?token=" + token;
+        String link = "http://" + serverHost + ":" + serverPort + "/registered-user/registration/confirm?token=" + token;
         Mail mail = new Mail();
         mail.setMailTo(request.getEmail());
         mail.setMailFrom("noreply_parkup@gmail.com");

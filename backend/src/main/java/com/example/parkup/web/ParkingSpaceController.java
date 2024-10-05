@@ -17,32 +17,31 @@ public class ParkingSpaceController {
         this.parkingSpaceService = parkingSpaceService;
     }
 
-    @GetMapping("/parkingSpace")
+    @GetMapping("/parking-spaces")
     public List<ParkingSpace> getAllParkingSpaces() {
         return parkingSpaceService.getAllParkingSpaces();
     }
 
-    @GetMapping("/parkingSpace/{parkingSpaceId}")
+    @GetMapping("/parking-spaces/{parkingSpaceId}")
     public ParkingSpace getParkingSpace(@PathVariable int parkingSpaceId) {
         ParkingSpace parkingSpace = parkingSpaceService.findById(parkingSpaceId);
-        if (parkingSpace != null) {
-            return parkingSpace;
-        } else {
+        if (parkingSpace == null) {
             throw new RuntimeException("ParkingSpace not found");
         }
+        return parkingSpace;
     }
 
-    @PostMapping("/parkingSpace/add")
+    @PostMapping("/parking-space")
     public ParkingSpace addParkingSpace(@RequestBody ParkingSpace parkingSpace) {
         return this.parkingSpaceService.addParkingSpace(parkingSpace);
     }
 
-    @PutMapping("/parkingSpace/{parkingSpaceId}")
+    @PutMapping("/parking-space/{parkingSpaceId}")
     public void updateParkingSpace(@PathVariable int parkingSpaceId, @RequestBody ParkingSpace parkingSpace) {
         this.parkingSpaceService.updateParkingSpace(parkingSpaceId, parkingSpace);
     }
 
-    @DeleteMapping("/parkingSpace/{parkingSpaceId}")
+    @DeleteMapping("/parking-space/{parkingSpaceId}")
     public void deleteParkingSpace(@PathVariable int parkingSpaceId) {
         this.parkingSpaceService.deleteParkingSpace(parkingSpaceId);
     }

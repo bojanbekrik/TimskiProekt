@@ -16,27 +16,23 @@ public class GuestController {
         this.guestService = guestService;
     }
 
-    @GetMapping("/guest")
+    @GetMapping("/guests")
     public List<Guest> getAllGuest() {
         return this.guestService.getGuests();
     }
 
-    @GetMapping("/guest/{guestId}")
+    @GetMapping("/guests/{guestId}")
     public Guest getGuest(@PathVariable int guestId) {
-
         Guest guest = this.guestService.findById(guestId);
-        if (guest != null) {
-            return guest;
-        } else {
+        if (guest == null) {
             throw new RuntimeException("Guest not found");
         }
-
+        return guest;
     }
 
     @PostMapping("/guest")
     public Guest addGuest(@RequestBody Guest guest) {
-        Guest guestToReturn = this.guestService.addGuest(guest);
-        return guestToReturn;
+        return this.guestService.addGuest(guest);
     }
 
     @DeleteMapping("/guest/{guestId}")

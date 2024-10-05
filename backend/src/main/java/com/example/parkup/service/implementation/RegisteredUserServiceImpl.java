@@ -154,7 +154,7 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationTokenRP = new ConfirmationToken();
         confirmationTokenRP.setToken(token);
-        confirmationTokenRP.setConfirmedAt(LocalDateTime.now());
+        confirmationTokenRP.setCreatedAt(LocalDateTime.now());
         confirmationTokenRP.setExpiresAt(LocalDateTime.now().plusMinutes(15));
         confirmationTokenRP.setRegisteredUser(registeredUser);
 
