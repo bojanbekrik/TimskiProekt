@@ -10,20 +10,20 @@ const useGetSessions = (zoneId) => {
   const { setAlert } = useContext(AccessoriesContext);
   const fetchData = async () => {
     await axios
-        .get(`/parkingSession/${zoneId}`)
-        .then((res) => {
-            setData(res.data);
-        })
-        .catch((err) => {
-            // ALERT FOR ERROR WITH ERROR MSG
-            setAlert({
-                type: 'error',
-                msg: 'Проблеми со серверот!', // TODO change msg to err.message
-            });
-        })
-        .finally(() => {
-            setIsLoading(false);
+      .get(`parking-sessions/${zoneId}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        // ALERT FOR ERROR WITH ERROR MSG
+        setAlert({
+          type: 'error',
+          msg: 'Проблеми со серверот!', // TODO change msg to err.message
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   useEffect(() => {
     fetchData();
@@ -36,7 +36,7 @@ const useGetSessions = (zoneId) => {
   return {
     data,
     isLoading,
-    setData
+    setData,
   };
 };
 

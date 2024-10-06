@@ -49,11 +49,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         Object principal = authentication.getPrincipal();
-        String className = principal.getClass().getName().split("\\.")[2];
+        String className = principal.getClass().getName().split("\\.")[5];
         String email=null;
         String fullName=null;
         Integer id =null;
         Collection<? extends GrantedAuthority> roles= new ArrayList<>();
+        System.out.println("principal " +  principal.getClass().getName());
+        System.out.println("classname " + className);
         switch (className) {
             case "RegisteredUser" -> {
                 RegisteredUser user = (RegisteredUser) authentication.getPrincipal();
@@ -84,7 +86,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 roles = user.getAuthorities();
             }
         }
-
+        System.out.println("fullName: " +  fullName);
+        System.out.println("id: " +  id);
+        System.out.println("roles: " + roles.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
         String access_token = JWT.create()
                 .withSubject(email)

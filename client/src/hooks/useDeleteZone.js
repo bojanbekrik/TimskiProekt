@@ -10,7 +10,7 @@ const useDeleteZone = () => {
   const deleteZone = async ({ id }) => {
     setIsLoading(true);
     await axios
-      .delete(`/parkingZone/${id}`) // TODO CHANGE OBJECT
+      .delete(`/parking-zone/${id}`) // TODO CHANGE OBJECT
       .then((res) => {
         setAlert({
           type: 'success',

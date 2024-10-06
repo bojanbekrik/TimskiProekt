@@ -21,7 +21,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 const Landing = () => {
   const { data: sessionStatus, isLoading: isSessionStatusLoading } = useGetData(
-      { url: `/registriranParkirac/session` } 
+    { url: `/registered-user/session` }
   );
 
   const history = useHistory();
@@ -47,46 +47,46 @@ const Landing = () => {
     }),
   }));
 
-  const CarPreview =() => {
+  const CarPreview = () => {
     if (!display) {
       return null;
     }
     return <Car className='car-preview' src={car} style={style} />;
   };
   return (
-      <Wrapper>
-          <ParkingSpace
-              ref={drop}
-              style={{ backgroundColor: canDrop ? 'rgba(0,255,0,0.3)' : '' }}
-          >
-              <ParkingSpaceHelper style={{ bottom: 0, left: '-12.5%' }} />
-              <ParkingSpaceHelper style={{ bottom: 0, right: '-12.5%' }} />
-              {sessionStatus ? (
-                  <Car
-                      src={car}
-                      style={{
-                          transform: 'translateX(-50%)',
-                          width: '70.5%',
-                          left: '50%',
-                      }}
-                  />
-              ) : (
-                  <ParkingIcon />
-              )}
-          </ParkingSpace>
-          {sessionStatus ? null : (
-              <ArrowsWrapper>
-                  <Arrows />
-              </ArrowsWrapper>
-          )}
-          {isDragging || sessionStatus ? null : <Car src={car} ref={drag} />}
-          {!sessionStatus ? null : (
-              <YouAreParkedButton onClick={() => history.push('/session')}>
-                  Паркирани Сте
-              </YouAreParkedButton>
-          )}
-          <CarPreview />
-      </Wrapper>
+    <Wrapper>
+      <ParkingSpace
+        ref={drop}
+        style={{ backgroundColor: canDrop ? 'rgba(0,255,0,0.3)' : '' }}
+      >
+        <ParkingSpaceHelper style={{ bottom: 0, left: '-12.5%' }} />
+        <ParkingSpaceHelper style={{ bottom: 0, right: '-12.5%' }} />
+        {sessionStatus ? (
+          <Car
+            src={car}
+            style={{
+              transform: 'translateX(-50%)',
+              width: '70.5%',
+              left: '50%',
+            }}
+          />
+        ) : (
+          <ParkingIcon />
+        )}
+      </ParkingSpace>
+      {sessionStatus ? null : (
+        <ArrowsWrapper>
+          <Arrows />
+        </ArrowsWrapper>
+      )}
+      {isDragging || sessionStatus ? null : <Car src={car} ref={drag} />}
+      {!sessionStatus ? null : (
+        <YouAreParkedButton onClick={() => history.push('/session')}>
+          Паркирани Сте
+        </YouAreParkedButton>
+      )}
+      <CarPreview />
+    </Wrapper>
   );
 };
 

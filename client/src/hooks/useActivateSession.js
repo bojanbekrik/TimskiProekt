@@ -13,26 +13,27 @@ const useActivateSession = () => {
   }) => {
     setIsLoading(true);
     axios
-        .put(
-            `/parkingSession/verify/${pssId}?parkingSpaceName=${parkingSpaceName}`)
-        .then((res) => {
-            // res.data is the new updated active zone
-            setAlert({
-                type: 'success',
-                msg: 'Сесијата е успешно активирана!',
-            });
-            onActivateSession({ updatedSession:res.data });
-        })
-        .catch((err) => {
-          console.log(err);
-            setAlert({
-                type: 'error',
-                msg: 'Проблеми со серверот!',
-            });
-        })
-        .finally(() => {
-            setIsLoading(false);
+      .put(
+        `/parking-session/verify/${pssId}?parkingSpaceName=${parkingSpaceName}`
+      )
+      .then((res) => {
+        // res.data is the new updated active zone
+        setAlert({
+          type: 'success',
+          msg: 'Сесијата е успешно активирана!',
         });
+        onActivateSession({ updatedSession: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+        setAlert({
+          type: 'error',
+          msg: 'Проблеми со серверот!',
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return {
     activateSession,
