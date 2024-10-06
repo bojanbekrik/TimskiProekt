@@ -5,6 +5,7 @@ import com.example.parkup.config.email.Mail;
 import com.example.parkup.data.entities.ConfirmationToken;
 import com.example.parkup.data.entities.RegisteredUser;
 import com.example.parkup.data.dto.RegistrationRequestDTO;
+import com.example.parkup.data.enumeration.UserRole;
 import com.example.parkup.service.ConfirmationTokenService;
 import com.example.parkup.service.MailService;
 import com.example.parkup.service.RegisteredUserService;
@@ -51,6 +52,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setMobile(request.getMobile());
+        user.setRole(UserRole.ROLE_REG_USER);
 
         String token = registeredUserService.signUpParkingAttendant(user);
 
